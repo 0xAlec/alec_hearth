@@ -24,15 +24,15 @@ const list = async (req, res) => {
     return;
   }
   const service = google.gmail({ version: "v1" });
-  const results = await service.users.threads.list({
+  const emails = await service.users.threads.list({
     userId: "me",
-    maxResults: 1000,
+    maxResults: 500,
     q: "is:sent",
   });
-  if (results.status != 200) {
-    res.send("Error retrieving connections: ", results.statusText);
+  if (emails.status != 200) {
+    res.send("Error retrieving emails: ", emails.statusText);
   }
-  const threads = await retrieveThreads(service, results.data.threads);
+  const threads = await retrieveThreads(service, emails.data.threads);
   const userEmail = await getUserEmail(service);
   let contacts = [];
   try {

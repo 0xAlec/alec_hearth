@@ -1,5 +1,4 @@
-Retrieves a list of senders associated with the 100 most recent emails for a gmail user.
-
+Retrieves a list of up to 100 contacts via emails exchanged (i.e. when there's a reply to a sent email)
 
 ## To run:
 
@@ -15,11 +14,11 @@ Navigate to ```localhost:3000/login``` and login with your Google account.
 
 ```$ npm test```
 
-Only added unit tests for business logic for parsing.
+Only added unit tests for parsing business logic.
 In production, we could add integration tests if we want to ensure behavior involving API/DBMS calls.
 
 
-## Routes:
+## Endpoints:
 
 `/login`
 
@@ -36,9 +35,11 @@ Uses Google Gmail API to parse an authenticated user's inbox, retrieving message
 
 ## Potential improvements:
 
+- I use the maximum records allowed by Google's API (500) to retrieve sent emails - since we are concerned with exchanges, it's possible that under 100 contacts are ultimately returned. (e.g. if the last 500 emails someone has sent has no replies). A way to solve this is by batching API calls until we have 100 contacts, but I did not implement this edge case in the interest of time.
+
 - Dynamic authorization scopes in environment
 
-- Authentication middleware to protect endpoints
+- Authentication middleware to protect endpoints instead of checking the client credentials
 
 - Persistance layer (not necessary in context of this application)
 
